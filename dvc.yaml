@@ -1,0 +1,49 @@
+stages:
+  preprocess:
+    cmd: python3 preprocess_dataset.py
+    deps:
+    - preprocess_dataset.py
+    - raw_dataset/cc_approvals.data
+    - utils_and_constants.py
+    outs:
+    - processed_dataset/cc_approvals.csv
+  hp_tune:
+    cmd: python3 hp_tuning.py
+    deps:
+    - processed_dataset/cc_approvals.csv
+    - hp_tuning.py
+    - utils_and_constants.py
+    - hp_config.json
+    outs:
+      - hp_tuning_results.md:
+          cache: false
+  train:
+    cmd: python3 train.py
+    deps:
+    - train.py
+    - model.py
+    - processed_dataset/cc_approvals.csv
+    - metrics_and_plots.py
+    - utils_and_constants.py
+    - logreg_best_params.json
+    metrics:
+    - metrics.json:
+        cache: false
+    plots:
+    - predictions.csv:
+        template: confusion
+        x: predicted_label
+        y: true_label
+        x_label: 'Predicted label'
+        y_label: 'True label'
+        title: Confusion matrix
+        cache: false
+    - roc_curve.csv:
+        template: simple
+        x: fpr
+        y: tpr
+        x_label: 'False Positive Rate'
+        y_label: 'True Positive Rate'
+        title: roc curve
+        cache: false
+
