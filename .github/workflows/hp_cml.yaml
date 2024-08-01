@@ -23,10 +23,10 @@ jobs:
         uses: iterative/setup-cml@v1
 
       - name: Setup DVC 
-        uses: iteravtive/setup-dvc@v1
+        uses: iterative/setup-dvc@v1
 
       - name: Install dependencies
-        run: pip install -r requirments.txt
+        run: pip install -r requirements.txt
 
       - name: make the processed_data folder
         run: mkdir processed_dataset
