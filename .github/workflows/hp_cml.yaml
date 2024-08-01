@@ -41,14 +41,11 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cml pr create \
-          --user-email=nourelhouda.bouzouita@gmail.com \
+          --user-email="nourelhouda.bouzouita@gmail.com" \
           --user-name=nour \
           --message="HP tuning" \
-          # Write the new head branch name \
-          --branch=train/${{ github.sha }} \
-          # Write the target branch name \
+          --branch="train/${{ github.sha }}" \
           --target-branch=main \
-          # Commit the hyperparameter job output file
           logreg_best_params.json
 
 
