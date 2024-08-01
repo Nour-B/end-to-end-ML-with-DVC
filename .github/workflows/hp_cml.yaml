@@ -8,48 +8,48 @@ permissions: write-all
 
 jobs:
   hp_tune_and_publish_report:
-  if: startsWith(github.head_ref, 'hp_tune/')
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    if: startsWith(github.head_ref, 'hp_tune/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-    - name: Setup CML
-      uses: iterative/setup-cml@v1
+      - name: Setup CML
+        uses: iterative/setup-cml@v1
 
-    - name: Setup DVC 
-      uses: iteravtive/setup-dvc@v1
+      - name: Setup DVC 
+        uses: iteravtive/setup-dvc@v1
 
-    - name: Install dependencies
-      run: pip install -r requirments.txt
+      - name: Install dependencies
+        run: pip install -r requirments.txt
 
-    - name: make the processed_data folder
-      run: mkdir processed_dataset
+      - name: make the processed_data folder
+        run: mkdir processed_dataset
 
-    - name: Run DVC pipeline
-      run:  |
-        dvc pull
-        dvc repro -f hp_tune
+      - name: Run DVC pipeline
+        run:  |
+          dvc pull
+          dvc repro -f hp_tune
 
-    - name: Create training branch
-      env:
-        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        cml pr create \
-        --user-email= nourelhouda.bouzouita@gmail.com \
-        --user-name = nour \
-        --message = "HP tuning" \
-        # Write the new head branch name
-        --branch train/${{ github.sha }} \
-        # Write the target branch name
-        --target-branch main \
-        # Commit the hyperparameter job output file
-        logreg_best_params.json
+      - name: Create training branch
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cml pr create \
+          --user-email= nourelhouda.bouzouita@gmail.com \
+          --user-name = nour \
+          --message = "HP tuning" \
+          # Write the new head branch name
+          --branch train/${{ github.sha }} \
+          # Write the target branch name
+          --target-branch main \
+          # Commit the hyperparameter job output file
+          logreg_best_params.json
 
 
 
