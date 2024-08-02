@@ -20,16 +20,13 @@ jobs:
           python-version: '3.9'
 
       - name: Setup CML
-        uses: iterative/setup-cml@v1
+        uses: iterative/setup-cml@v2
 
       - name: Setup DVC 
         uses: iterative/setup-dvc@v1
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-
-      - name: make the processed_data folder
-        run: mkdir processed_dataset
 
       - name: Run DVC pipeline
         run:  |
@@ -40,15 +37,14 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cml comment create hp_tuning_results.md
+          export BRANCH_NAME=train/$(git rev-parse --short "${{ github.sha }}")
           cml pr create \
-          --user-email= nourelhouda.bouzouita@gmail.com \
-          --user-name = nour \
-          --message = "HP tuning" \
-          # Write the new head branch name
-          --branch train/${{ github.sha }} \
-          # Write the target branch name
-          --target-branch main \
-          # Commit the hyperparameter job output file
+          --user-email="nourelhouda.bouzouita@gmail.com" \
+          --user-name=nour \
+          --message="HP tuning" \
+          --branch=$BRANCH_NAME \
+          --target-branch=main \
           logreg_best_params.json
 
 
