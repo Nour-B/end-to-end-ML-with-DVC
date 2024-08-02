@@ -22,7 +22,7 @@ jobs:
           python-version: '3.9'
       
       - name: setup CML
-        uses: iterative/setup-cml@v1
+        uses: iterative/setup-cml@v2
 
       - name: setup DVC
         uses: iterative/setup-dvc@v1
