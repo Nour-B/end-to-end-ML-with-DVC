@@ -30,9 +30,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: make the processed_data folder
-        run: mkdir processed_dataset
-
       - name: Run DVC pipeline
         run: |
           dvc pull
