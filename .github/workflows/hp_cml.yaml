@@ -37,11 +37,13 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cml comment create hp_tuning_results.md
+          export BRANCH_NAME=train/$(git rev-parse --short "${{ github.sha }}")
           cml pr create \
           --user-email="nourelhouda.bouzouita@gmail.com" \
           --user-name=nour \
           --message="HP tuning" \
-          --branch="train/${{ github.sha }}" \
+          --branch=$BRANCH_NAME \
           --target-branch=main \
           logreg_best_params.json
 
