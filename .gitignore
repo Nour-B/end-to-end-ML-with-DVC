@@ -1,2 +1,3 @@
 __pycache__/
-.DS-Store
+.DS_Store
+/logreg_best_params.json
