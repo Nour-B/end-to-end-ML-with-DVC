@@ -41,11 +41,13 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Print metrics of current branch
-          dvc metrics show --md >> report.md
+          dvc metrics show --md >> metrics_compare.md
+
           # Compare metrics with main branch
           git fetch --prune
           dvc metrics diff --md main >> metrics_compare.md
-          #cml comment create metrics_compare.md
-          dvc plots show predictions.csv file:///.dvc/confusion_matrix.html
+
+          # Plot the confusion matrix
+          dvc plots show predictions.csv .dvc/confusion_matrix.html
             
-          cml comment create report.md
+          cml comment create metrics_compare.md
