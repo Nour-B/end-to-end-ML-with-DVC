@@ -48,6 +48,7 @@ jobs:
           dvc metrics diff --md main >> metrics_compare.md
 
           # Plot the confusion matrix
-          dvc plots show predictions.csv .dvc/confusion_matrix.html
+          dvc plots show predictions.csv 
+          #.dvc/confusion_matrix.html
             
           cml comment create metrics_compare.md
