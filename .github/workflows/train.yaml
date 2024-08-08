@@ -49,6 +49,9 @@ jobs:
 
           # Plot the confusion matrix
           dvc plots show predictions.csv 
+
+          # Plot the roc curve
+          dvc plots show roc_curve.csv
          
             
           cml comment create metrics_compare.md
