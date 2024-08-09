@@ -48,7 +48,7 @@ jobs:
           dvc metrics diff --md >> metrics_compare.md
 
           # Plot the confusion matrix
-          dvc plots show predictions.csv >> metrics_compare.md
+          dvc plots show --open predictions.csv >> metrics_compare.md
 
           # Plot the roc curve
           dvc plots show roc_curve.csv >> metrics_compare.md
