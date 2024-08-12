@@ -1,1 +1,2 @@
-# E2E ML WITH DVC With Train test
+# E2E ML 
+End to End machine learning with DVC and Github actions
